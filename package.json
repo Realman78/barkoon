@@ -1,0 +1,19 @@
+{
+  "name": "barkoon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "marin dedic",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "hbs": "^4.1.2",
+    "mongodb": "^4.1.2",
+    "mongoose": "^6.0.7",
+    "path": "^0.12.7"
+  }
+}

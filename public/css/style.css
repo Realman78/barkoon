@@ -1,0 +1,195 @@
+body {
+  color: pink;
+}
+
+.container {
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(
+    to right top,
+    #65dfc9,
+    #d0eb6c
+  ); /* #65dfc9, #6cdbeb */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.pink {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #3d3d3d;
+  font-weight: 500;
+  font-size: 20px;
+  background-color: #a7edff;
+  padding: 5px;
+  border-radius: 20px;
+  width: 100%;
+}
+
+.tasks {
+  display: flex;
+}
+
+.tasksSection {
+  overflow-y: scroll;
+  height: 500px;
+}
+
+.state {
+  height: 100%;
+  width: 10%;
+  background-color: #eeeeee;
+  border: 0px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 20px;
+  height: min-content;
+  text-align: center;
+}
+
+.state:hover {
+  background: #d0eb6c;
+  color: rgb(255, 255, 255);
+}
+
+h1 {
+  color: #426696;
+  font-weight: 600;
+  font-size: 2rem;
+  opacity: 0.8;
+  text-align: center;
+}
+h2,
+p {
+  color: #658ec6;
+  font-weight: 500;
+}
+
+h3 {
+  color: #426696;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.glass {
+  background: white;
+  min-height: 90vh;
+  width: 90%;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  border-radius: 2rem;
+  backdrop-filter: blur(2rem);
+  justify-content: center;
+  display: flex;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.card {
+  background: linear-gradient(
+    to left top,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.5)
+  );
+  border-radius: 1rem;
+  margin: 2rem 1rem;
+  padding: 2rem;
+  box-shadow: 5px 5px 20px rgba(122, 122, 122, 0.212);
+  justify-content: space-between;
+  flex: 25%;
+}
+
+.draggable {
+  background-color: #4aae9b;
+  font-weight: normal;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+button {
+  padding: 0.5rem;
+  font-size: 2rem;
+  border: none;
+  background: rgb(255, 255, 255);
+  color: #fda085;
+  background: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #fda085;
+  color: rgb(255, 255, 255);
+}
+
+.add {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  z-index: 100;
+}
+
+.add-textarea {
+  position: fixed;
+  bottom: 200px;
+  right: 20px;
+  z-index: 100;
+}
+
+.textarea {
+  position: fixed;
+  bottom: 100px;
+  left: 100px;
+  z-index: 100;
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #2b5f55;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(95, 172, 189);
+}
+.task {
+  font-size: 1.2rem;
+  color: black;
+}

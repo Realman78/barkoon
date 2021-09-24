@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Home</title>
+</head>
+
+<body>
+    <script>
+        var user = {{{userJS}}}
+    </script>
+    <div
+        style="position: fixed; top: 100px; left: 20px; height: 200px; width: 200px; background-color:pink; opacity: 1; z-index: 100">
+
+    </div>
+    <div class="container">
+        <div class="glass">
+
+            <div class="cards">
+                <div class="card dropzone" ondragover="onDragOver(event)" ondrop="onDrop(event);">
+                    <h1>To Do</h1>
+                    <div class="tasksSection" id="tasksDiv">
+
+                    </div>
+                </div>
+                <div class="card dropzone" ondragover="onDragOver(event)" ondrop="onDrop(event);">
+                    <h1>In progress</h1>
+                    <div class="tasksSection" id="tasksDivInProgress">
+
+                    </div>
+                </div>
+                <div class="card dropzone" ondragover="onDragOver(event)" ondrop="onDrop(event);">
+                    <h1>In review</h1>
+                    <div class="tasksSection" id="tasksDivInReview">
+
+                    </div>
+                </div>
+                <div class="card dropzone" ondragover="onDragOver(event)" ondrop="onDrop(event);">
+                    <h1>Done</h1>
+                    <div class="tasksSection" id="tasksDivDone" ondragover="onDragOver(event)">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <textarea id="textAreaDescription" cols="30" rows="10" class="textarea"></textarea>
+    <button id="addTextareaButton" class="add-textarea"><i class="fas fa-edit"></i></button>
+    <button id="addTaskButton" class="add"><i class="fas fa-plus-square"></i></button>
+    <button id="logoutButton">Log out</button>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
