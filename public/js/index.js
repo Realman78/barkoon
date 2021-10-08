@@ -17,38 +17,25 @@ function showTasks(data) {
 }
 
 function createTask(task) {
-    return `<div class="task draggable" draggable="true" ondragstart="onDragStart(event)" id="card${task._id}">
+    return `<div class="task draggable" draggable="true" ondragstart="drag(event)" id="card${task._id}">
             <span class="taskDescription">
                 ${task.description} ${task._id}
             </span>
         </div>`
 }
 
-function onDragStart(event) {
-    event.dataTransfer.setData("text/plain", event.target.id);
-
-    event.currentTarget.style.backgroundColor = "rgb(0, 179, 203)";
-    event.currentTarget.style.cursor = "grab";
+function allowDrop(ev) {
+    ev.preventDefault();
 }
 
-function onDragOver(event) {
-    event.preventDefault();
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
 }
 
-function onDrop(event) {
-    const id = event.dataTransfer.getData("text");
-
-    const draggableElement = document.getElementById(id);
-    draggableElement.style.backgroundColor = "#eeeeee";
-    draggableElement.style.cursor = "grab";
-
-    const dropzone = event.target;
-
-    if (dropzone.id == 'tasksDiv' || dropzone.id == 'tasksDivInProgress' || dropzone.id == 'tasksDivInReview' || dropzone.id == 'tasksDivDone') {
-        dropzone.appendChild(draggableElement);
-    }
-
-    event.dataTransfer.clearData();
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
 }
 
 addTaskButton.addEventListener('click', e => {
