@@ -16,11 +16,25 @@
     <script>
         var user = {{{userJS}}}
     </script>
-    <div
-        style="position: fixed; top: 100px; left: 20px; height: 200px; width: 200px; background-color:pink; opacity: 1; z-index: 100">
-
-    </div>
     <div class="container">
+        <div id="menu" class="container-menu" onclick="myFunction(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+        <nav class="nav">
+            <div class="nav-links">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-chalkboard"></i>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user-circle"></i>
+                    Profile
+                </a>
+            </div>
+            <div class="nav-overlay"></div>
+        </nav>
         <div class="glass">
 
             <div class="cards">

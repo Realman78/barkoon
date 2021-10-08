@@ -1,16 +1,20 @@
 body {
-  color: pink;
+  color: #426696;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
 }
 
 .container {
   font-family: "Poppins", sans-serif;
-  min-height: 100vh;
-  background: linear-gradient(
-    to right top,
-    #65dfc9,
-    #d0eb6c
-  ); /* #65dfc9, #6cdbeb */
-  display: flex;
+  min-height: 100%;
+  background: rgb(254, 234, 202);
   align-items: center;
   justify-content: center;
 }
@@ -20,22 +24,17 @@ body {
   margin-bottom: 20px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.pink {
+.task {
   margin-top: 5px;
   margin-bottom: 5px;
   color: #3d3d3d;
   font-weight: 500;
   font-size: 20px;
-  background-color: #a7edff;
-  padding: 5px;
-  border-radius: 20px;
-  width: 100%;
+  background-color: #eeeeee;
+  border: 3px solid #42669640;
+  padding: 10px;
+  border-radius: 10px;
+  width: 90%;  
 }
 
 .tasks {
@@ -44,7 +43,7 @@ body {
 
 .tasksSection {
   overflow-y: scroll;
-  height: 500px;
+  height: 90%;
 }
 
 .state {
@@ -63,7 +62,7 @@ body {
 }
 
 .state:hover {
-  background: #d0eb6c;
+  background:  #d0eb6c;
   color: rgb(255, 255, 255);
 }
 
@@ -71,7 +70,6 @@ h1 {
   color: #426696;
   font-weight: 600;
   font-size: 2rem;
-  opacity: 0.8;
   text-align: center;
 }
 h2,
@@ -95,10 +93,14 @@ h3 {
     rgba(255, 255, 255, 0.7),
     rgba(255, 255, 255, 0.3)
   );
-  border-radius: 2rem;
+  border-radius: 10px;
+  z-index: 1;
   backdrop-filter: blur(2rem);
   justify-content: center;
   display: flex;
+  margin: auto;
+  width: 90%;
+  padding: 10px;
 }
 
 .cards {
@@ -113,16 +115,15 @@ h3 {
     rgba(255, 255, 255, 0.8),
     rgba(255, 255, 255, 0.5)
   );
-  border-radius: 1rem;
+  border-radius: 10px;
   margin: 2rem 1rem;
-  padding: 2rem;
+  padding: 1rem;
   box-shadow: 5px 5px 20px rgba(122, 122, 122, 0.212);
   justify-content: space-between;
-  flex: 25%;
+  flex: 25%;  
 }
 
 .draggable {
-  background-color: #4aae9b;
   font-weight: normal;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -133,17 +134,20 @@ h3 {
 
 button {
   padding: 0.5rem;
-  font-size: 2rem;
-  border: none;
-  background: rgb(255, 255, 255);
-  color: #fda085;
-  background: rgb(255, 255, 255);
-  cursor: pointer;
-  transition: all 0.3s ease;
+    font-size: 2rem;
+    border: none;
+    background: rgb(255, 255, 255);
+    color:  #223d47;
+    background: rgb(255, 255, 255);
+    width: 50px;
+    height: 50px;
+    border-radius: 20%;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 button:hover {
-  background: #fda085;
+  background:   #223d47;
   color: rgb(255, 255, 255);
 }
 
@@ -161,6 +165,20 @@ button:hover {
   z-index: 100;
 }
 
+.logout {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  background:  #223d47;
+  color: rgb(255, 255, 255);  
+}
+
+.logout:hover {
+  background:  rgb(255, 255, 255);
+  color: #223d47;
+}
+
 .textarea {
   position: fixed;
   bottom: 100px;
@@ -175,21 +193,206 @@ button:hover {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
+  box-shadow: inset 0 0 5px grey; 
   border-radius: 10px;
 }
-
+ 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #2b5f55;
+  background: #2b5f55; 
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(95, 172, 189);
+  background: rgb(95, 172, 189); 
 }
-.task {
-  font-size: 1.2rem;
-  color: black;
+
+.login {
+  margin: 0;
+  padding: 0;
+  background-image: url(planner3.png);
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+
+.container-login {
+  width: 400px;
+  height: 420px;
+  color: #000;
+  top: 50%;
+  left: 50%;
+  padding: 50px 30px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-shadow: 10px 10px 50px rgb(100, 100, 100);
+  text-align: center;
+  border-radius: 10px;
+}
+
+.login-h1 {
+  text-align: left;
+  color: #3e3e3e;
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.container-login .input {
+  width: 100%;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 1px solid #747474; /*426696*/
+  background: transparent;
+  outline: none;
+  height: 30px;
+  font-size: 20px;
+  opacity: 1;
+  color: #3e3e3e;
+}
+
+.input-login {
+  width: 50%;
+  margin-bottom: 20px;
+  border: none;
+  background: transparent;
+  outline: none;
+  height: 50px;
+  font-size: 20px;
+  color: #fff;
+  background-color: rgb(0, 179, 203);
+  border-radius: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.input-login:hover {
+  background-color: rgb(0, 120, 136);
+  color: #fff;
+  transition: 0.5s ease;
+}
+
+::placeholder {
+  color: #747474;
+  transition: 0.5s ease;
+}
+
+.input:focus::placeholder {
+  color: transparent;
+  transition: 0.5s ease;
+}
+
+.register {
+  color: rgb(0, 179, 203);
+}
+
+.container-menu {
+  display: inline-block;
+  cursor: pointer;
+  transform: translate(20px, 20px);
+  flex-shrink: 0;
+  z-index: 20000000;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.nav {
+  display: flex;
+  top: 0;
+  left: 0;
+  background-color: rgb(219, 190, 140);
+  box-shadow: 20px 20px 20px rgba(122, 122, 122, 0.212);
+}
+
+.nav-links {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  z-index: 10;
+  height: 100vh;
+  width: 250px;
+  background-color: #426696;
+  transform: translateX(-250px);
+  border-radius: 10px;
+}
+
+.nav-open .nav-links {
+  transform: translateX(0px);
+  transition: 0.2s ease;
+  box-shadow: 10px 10px 20px rgb(122, 122, 122);
+}
+
+.nav-close .nav-links {
+  transform: translateX(-250px);
+  transition: 0.2s ease;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: none;
+  padding: 20px 20px;
+  z-index: 10;
+}
+
+.nav-link > i {
+  margin-right: 20px;
+  width: 20px;
+}
+
+.nav-link-active, .nav-link:hover {
+  color: #426696;
+  background-color: rgb(254, 234, 202);
+}
+
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 100px;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(2px);
+  visibility: hidden;
+}
+
+.nav-open .nav-overlay {
+  visibility: visible;
+  transition: 0.2s ease;
+}
+
+.nav-close .nav-overlay {
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.1s ease;
+}
+
+.barkoon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+  top: 20px;
 }

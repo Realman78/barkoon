@@ -4,53 +4,54 @@ const addTaskButton = document.getElementById('addTaskButton')
 const logoutButton = document.getElementById('logoutButton')
 
 async function getTasks() {
-  const res = await fetch('/tasks/getall')
-  const data = await res.json()
-  showTasks(data)
+    const res = await fetch('/tasks/getall')
+    const data = await res.json()
+    showTasks(data)
 }
 
 function showTasks(data) {
-  data.forEach((task) => {
-    tasksDiv.innerHTML += createTask(task)
-  });
+    data.forEach((task) => {
+        tasksDiv.innerHTML += createTask(task)
+        console.log(task.id)
+    });
 }
 
-function createTask(task){
-    return `<div class="task">
+function createTask(task) {
+    return `<div class="task draggable" draggable="true" ondragstart="onDragStart(event)" id="card${task._id}">
             <span class="taskDescription">
-                ${task.description}
+                ${task.description} ${task._id}
             </span>
         </div>`
 }
 
 function onDragStart(event) {
-  event.dataTransfer.setData("text/plain", event.target.id);
+    event.dataTransfer.setData("text/plain", event.target.id);
 
-  event.currentTarget.style.backgroundColor = "#d0eb6c";
-  event.currentTarget.style.cursor = "grab";
+    event.currentTarget.style.backgroundColor = "rgb(0, 179, 203)";
+    event.currentTarget.style.cursor = "grab";
 }
 
 function onDragOver(event) {
-  event.preventDefault();
+    event.preventDefault();
 }
 
 function onDrop(event) {
-  const id = event.dataTransfer.getData("text");
+    const id = event.dataTransfer.getData("text");
 
-  const draggableElement = document.getElementById(id);
-  draggableElement.style.backgroundColor = "#4AAE9B";
-  draggableElement.style.cursor = "grab";
+    const draggableElement = document.getElementById(id);
+    draggableElement.style.backgroundColor = "#eeeeee";
+    draggableElement.style.cursor = "grab";
 
-  const dropzone = event.target;
+    const dropzone = event.target;
 
-  if(dropzone.id == 'tasksDiv' || dropzone.id == 'tasksDivInProgress' || dropzone.id == 'tasksDivInReview' || dropzone.id == 'tasksDivDone') {
-    dropzone.appendChild(draggableElement);
-  }  
+    if (dropzone.id == 'tasksDiv' || dropzone.id == 'tasksDivInProgress' || dropzone.id == 'tasksDivInReview' || dropzone.id == 'tasksDivDone') {
+        dropzone.appendChild(draggableElement);
+    }
 
-  event.dataTransfer.clearData();
+    event.dataTransfer.clearData();
 }
 
-addTaskButton.addEventListener('click', e =>{
+addTaskButton.addEventListener('click', e => {
     e.preventDefault()
     //Task desc koji dobivam od textArea-e i user cemo poslije zamijenit sa pravim userima 
     const taskDescription = textAreaDescription.value
@@ -63,46 +64,67 @@ addTaskButton.addEventListener('click', e =>{
     addTask(bodyData)
 })
 
-logoutButton.addEventListener('click', (e)=>{
+logoutButton.addEventListener('click', (e) => {
     e.preventDefault()
     console.log(e.target)
 })
 
-async function updateTask(id, bodyData){
-    fetch('/tasks/update/'+id, {
+async function updateTask(id, bodyData) {
+    fetch('/tasks/update/' + id, {
         method: 'PATCH',
-        headers:{
+        headers: {
             'Content-Type': 'application/json'
         },
         body: bodyData
-    }).then(async (res)=>{
+    }).then(async (res) => {
         const result = await res.text()
         document.location.reload()
         console.log(result)
     })
 }
 
-async function addTask(taskData){
+async function addTask(taskData) {
     fetch('/tasks/add', {
         method: "POST",
-        headers:{
+        headers: {
             'Content-Type': 'application/json'
         },
         // *!*
         body: taskData
-    }).then(async (res)=>{
+    }).then(async (res) => {
         const result = await res.text()
         document.location.reload()
         console.log(result)
     })
 }
 
-addTextareaButton.addEventListener('click', (e)=>{
-    if(textAreaDescription.style.display == "none") {
+addTextareaButton.addEventListener('click', (e) => {
+    if (textAreaDescription.style.display == "none") {
         textAreaDescription.style.display = "block";
     } else {
         textAreaDescription.style.display = "none";
     }
-    })
+})
+
+function myFunction(x) {
+    x.classList.toggle("change");
+}
+
+menu.addEventListener('click', (e) => {
+    const nav = document.querySelector(".nav");
+    const overlay = document.querySelector(".nav-overlay");
+
+    if (nav.classList == "nav nav-open") {
+        nav.classList.remove("nav-open");
+        nav.classList.add("nav-close")
+        overlay.classList.remove("nav-open");
+        overlay.classList.add("nav-open");
+    } else {
+        nav.classList.remove("nav-close");
+        nav.classList.add("nav-open");
+        overlay.classList.remove("nav-open");
+        overlay.classList.add("nav-open");
+    }
+})
 
 getTasks();
