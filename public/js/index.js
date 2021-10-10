@@ -12,13 +12,12 @@ async function getTasks() {
 function showTasks(data) {
     data.forEach((task) => {
         tasksDiv.innerHTML += createTask(task)
-        console.log(task.id)
     });
 }
 
 function createTask(task) {
     return `<div class="task draggable" draggable="true" ondragstart="drag(event)" id="card${task._id}">
-            <span class="taskDescription">
+            <span class="taskDescription" id="cardtext${task._id}" ondblclick="editTask(event)">
                 ${task.description} ${task._id}
             </span>
         </div>`
@@ -36,6 +35,24 @@ function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     ev.target.appendChild(document.getElementById(data));
+}
+
+function editTask(event) {
+    var val = document.getElementById(event.target.id).innerHTML.trim();
+    document.getElementById(event.target.id).innerHTML = "";
+    var input = document.createElement("textarea");
+    input.value = val;
+    input.classList.add("no-outline");
+    input.classList.add("edit");
+    input.classList.add("task");
+    input.onblur = function () {
+        var val = this.value;
+        this.parentNode.innerHTML = val;
+    }
+    this.innerHTML = "";
+    event.target.appendChild(input);
+    input.focus();
+    console.log(val);
 }
 
 addTaskButton.addEventListener('click', e => {

@@ -396,3 +396,15 @@ button:hover {
   width: 20%;
   top: 20px;
 }
+
+.edit {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+.no-outline:focus {
+  outline: none;
+}
