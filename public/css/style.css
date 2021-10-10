@@ -46,6 +46,10 @@ body {
   height: 90%;
 }
 
+.taskDescription {
+  display: block;
+}
+
 .state {
   height: 100%;
   width: 10%;
