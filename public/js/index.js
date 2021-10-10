@@ -16,11 +16,9 @@ function showTasks(data) {
 }
 
 function createTask(task) {
-    return `<div class="task draggable" draggable="true" ondragstart="drag(event)" id="card${task._id}">
-            <span class="taskDescription" id="${task._id}" ondblclick="editTask(event)">
-                ${task.description}
-            </span>
-        </div>`
+    return `<div class="task draggable" draggable="true" ondragstart="drag(event)" ondblclick="editTask(event)" id="${task._id}">
+        ${task.description}
+    </div>`
 }
 
 function allowDrop(ev) {
