@@ -1,7 +1,7 @@
 const tasksDiv = document.getElementById("tasksDiv");
 const textAreaDescription = document.getElementById('textAreaDescription')
 const addTaskButton = document.getElementById('addTaskButton')
-const logoutButton = document.getElementById('logoutButton')
+const logoutButton = document.getElementById('logoutLink')
 
 async function getTasks() {
     const res = await fetch('/tasks/getall')
@@ -50,13 +50,15 @@ function editTask(event, task) {
     input.onblur = function () {
         var val = this.value;
         this.parentNode.innerHTML = val;
+        updateTask(event.target.id, JSON.stringify({
+            description: val
+        }));
     }
     this.innerHTML = "";
     event.target.appendChild(input);
     input.focus();
     console.log(val);
     console.log(event.target.id);
-    //updateTask(event.target.id, val);
 
     input.addEventListener('click', (e) => {
         e.preventDefault();
@@ -72,7 +74,8 @@ addTaskButton.addEventListener('click', e => {
     //tako da ih u requestu dolje (*!*) može primit pa onda po tome dodajen u db
     const bodyData = JSON.stringify({
         description: taskDescription,
-        user: user.username
+        user: user.username,
+        stage: 1
     })
     addTask(bodyData)
 })
@@ -91,7 +94,6 @@ async function updateTask(id, bodyData) {
         body: bodyData
     }).then(async (res) => {
         const result = await res.text()
-        document.location.reload()
         console.log(result)
     })
 }
@@ -141,3 +143,10 @@ menu.addEventListener('click', (e) => {
 })
 
 getTasks();
+
+logoutButton.addEventListener('click', (e)=>{
+    e.preventDefault()
+    fetch('/logout').then(()=>{
+        window.location = '/login'
+    })
+})

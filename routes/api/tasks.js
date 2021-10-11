@@ -15,7 +15,7 @@ router.post('/add', async (req,res)=>{
     const body = {
         description: req.body.description,
         user: req.body.user._id,
-        completed: false,
+        stage: 1,
     }
     const task = await Task.create(body).catch(e=>console.log(e))
     res.send(task)
@@ -23,8 +23,8 @@ router.post('/add', async (req,res)=>{
 })
 
 router.patch('/update/:id', async (req,res)=>{
-    if (!req.params.id || !req.body.description) return res.sendStatus(404)
-    const task = await Task.findByIdAndUpdate(req.params.id, {description: req.body.description}, {new: true}).catch(e=>console.log(e))
+    if (!req.params.id || !req.body.description || req.body.stage) return res.sendStatus(404)
+    const task = await Task.findByIdAndUpdate(req.params.id, {description: req.body.description, stage: req.body.stage}, {new: true}).catch(e=>console.log(e))
     if (!task) return res.sendStatus(400)
     res.status(200).send(task)
 })
