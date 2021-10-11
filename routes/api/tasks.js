@@ -23,7 +23,7 @@ router.post('/add', async (req,res)=>{
 })
 
 router.patch('/update/:id', async (req,res)=>{
-    if (!req.params.id || !req.body.description || req.body.stage) return res.sendStatus(404)
+    if (!req.params.id || !req.body.description || !req.body.stage) return res.sendStatus(404)
     const task = await Task.findByIdAndUpdate(req.params.id, {description: req.body.description, stage: req.body.stage}, {new: true}).catch(e=>console.log(e))
     if (!task) return res.sendStatus(400)
     res.status(200).send(task)
