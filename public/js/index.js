@@ -48,10 +48,11 @@ function editTask(event, task) {
     input.classList.add("edit");
     input.classList.add("task");
     input.onblur = function () {
-        var val = this.value;
-        this.parentNode.innerHTML = val;
+        var description = this.value;
+        this.parentNode.innerHTML = description;
         updateTask(event.target.id, JSON.stringify({
-            description: val
+            description,
+            stage: 1
         }));
     }
     this.innerHTML = "";
