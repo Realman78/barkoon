@@ -1,4 +1,7 @@
 const tasksDiv = document.getElementById("tasksDiv");
+const tasksDivInProgress = document.getElementById("tasksDivInProgress");
+const tasksDivInReview = document.getElementById("tasksDivInReview");
+const tasksDivDone = document.getElementById("tasksDivDone");
 const textAreaDescription = document.getElementById('textAreaDescription')
 const addTaskButton = document.getElementById('addTaskButton')
 const logoutButton = document.getElementById('logoutLink')
@@ -11,7 +14,25 @@ async function getTasks() {
 
 function showTasks(data) {
     data.forEach((task) => {
-        tasksDiv.innerHTML += createTask(task)
+        /* tasksDiv.innerHTML += createTask(task) */
+
+        switch (task.stage) {
+            case 1:
+                tasksDiv.innerHTML += createTask(task)
+                break;
+    
+            case 2:
+                tasksDivInProgress.innerHTML += createTask(task)
+                break;
+    
+            case 3:
+                tasksDivInReview.innerHTML += createTask(task)
+                break;
+    
+            case 4:
+                tasksDivDone.innerHTML += createTask(task)
+                break;
+        }
     });
 }
 
@@ -34,8 +55,39 @@ function drag(ev) {
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
+    var description = document.getElementById(data).innerText.replace(/</g,"&lt;");
     if (ev.target.id == 'tasksDiv' || ev.target.id == 'tasksDivInProgress' || ev.target.id == 'tasksDivInReview' || ev.target.id == 'tasksDivDone') {
         ev.target.appendChild(document.getElementById(data));
+    }
+
+    switch (ev.target.id) {
+        case 'tasksDiv':
+            updateTask(data.substring(4), JSON.stringify({
+                description,
+                stage: 1
+            }));
+            break;
+
+        case 'tasksDivInProgress':
+            updateTask(data.substring(4), JSON.stringify({
+                description,
+                stage: 2
+            }));
+            break;
+
+        case 'tasksDivInReview':
+            updateTask(data.substring(4), JSON.stringify({
+                description,
+                stage: 3
+            }));
+            break;
+
+        case 'tasksDivDone':
+            updateTask(data.substring(4), JSON.stringify({
+                description,
+                stage: 4
+            }));
+            break;
     }
 }
 
@@ -58,27 +110,44 @@ function editTask(event, task) {
     this.innerHTML = "";
     event.target.appendChild(input);
     input.focus();
-    console.log(val);
-    console.log(event.target.id);
-
-    input.addEventListener('click', (e) => {
-        e.preventDefault();
-        //updateTask(event.target.id, "123");
-    })
 }
 
 addTaskButton.addEventListener('click', e => {
     e.preventDefault()
     //Task desc koji dobivam od textArea-e i user cemo poslije zamijenit sa pravim userima 
-    const taskDescription = textAreaDescription.value
+    // const taskDescription = textAreaDescription.value
     //bodyData su parametri koji ulaze kao novi task, moras napravit objekt od njih i stringify-at
     //tako da ih u requestu dolje (*!*) može primit pa onda po tome dodajen u db
-    const bodyData = JSON.stringify({
+
+    /* if (textAreaDescription.style.display == "none") {
+        textAreaDescription.style.display = "block";
+    } else {
+        textAreaDescription.style.display = "none";
+    } */
+
+    var input = document.createElement("textarea");
+    input.classList.add("textarea");
+    input.classList.add("task");
+    tasksDiv.appendChild(input);
+
+    input.onblur = function () {
+        description = this.value;
+        const bodyData = JSON.stringify({
+            description: description,
+            user: user.username,
+            stage: 1
+        })
+        addTask(bodyData)
+    }
+    e.target.appendChild(input);
+    input.focus();
+
+    /* const bodyData = JSON.stringify({
         description: taskDescription,
         user: user.username,
         stage: 1
     })
-    addTask(bodyData)
+    addTask(bodyData) */
 })
 
 logoutButton.addEventListener('click', (e) => {
@@ -114,14 +183,6 @@ async function addTask(taskData) {
     })
 }
 
-addTextareaButton.addEventListener('click', (e) => {
-    if (textAreaDescription.style.display == "none") {
-        textAreaDescription.style.display = "block";
-    } else {
-        textAreaDescription.style.display = "none";
-    }
-})
-
 function myFunction(x) {
     x.classList.toggle("change");
 }
@@ -145,9 +206,9 @@ menu.addEventListener('click', (e) => {
 
 getTasks();
 
-logoutButton.addEventListener('click', (e)=>{
+logoutButton.addEventListener('click', (e) => {
     e.preventDefault()
-    fetch('/logout').then(()=>{
+    fetch('/logout').then(() => {
         window.location = '/login'
     })
 })
