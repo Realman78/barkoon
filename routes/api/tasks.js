@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const Task = require('../../schemas/Task')
 
+let deleteTimeout;
+
 //Read iz databaze sve taskove koji nisu completeani te njihovo slanje (res.send) da se mogu koristit u frontendu
 router.get('/getall',async (req,res)=>{
     const tasks = await Task.find({completed: false}).catch(e=> console.log(e))
@@ -24,8 +26,21 @@ router.post('/add', async (req,res)=>{
 
 router.patch('/update/:id', async (req,res)=>{
     if (!req.params.id || !req.body.description || !req.body.stage) return res.sendStatus(404)
+    if (req.body.stage != 4){
+        clearTimeout(deleteTimeout)
+    }
     const task = await Task.findByIdAndUpdate(req.params.id, {description: req.body.description, stage: req.body.stage}, {new: true}).catch(e=>console.log(e))
     if (!task) return res.sendStatus(400)
     res.status(200).send(task)
+})
+
+router.delete('/delete/:id', (req,res)=>{
+    deleteTimeout = setTimeout(async ()=>{
+        const task = await Task.findByIdAndDelete(req.params.id).catch(e=>console.log(e))
+        if (!task){
+            return res.sendStatus(400)
+        }
+        res.send(task)
+    }, 5000)
 })
 module.exports = router

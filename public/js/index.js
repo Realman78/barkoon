@@ -31,6 +31,7 @@ function showTasks(data) {
     
             case 4:
                 tasksDivDone.innerHTML += createTask(task)
+                
                 break;
         }
     });
@@ -87,6 +88,15 @@ function drop(ev) {
                 description,
                 stage: 4
             }));
+            fetch('/tasks/delete/' + data.substring(4), {
+                    method: "DELETE",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then((res)=>res.json())
+                .then(data=>{
+                    console.log(data)
+                })
             break;
     }
 }
