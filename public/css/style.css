@@ -43,7 +43,7 @@ body {
 
 .tasksSection {
   overflow-y: scroll;
-  height: 90%;
+  height: 650px;
 }
 
 .taskDescription {
@@ -100,18 +100,23 @@ h3 {
   border-radius: 10px;
   z-index: 1;
   backdrop-filter: blur(2rem);
-  justify-content: center;
+  /* justify-content: center; */
   display: flex;
   margin: auto;
   width: 90%;
   padding: 10px;
+  align-items: stretch;
+  flex-direction: row;
 }
 
-.cards {
-  display: flex;
+.cards {  
   justify-content: center;
   width: 100%;
+  height: inherit;
+  display: flex;
 }
+
+
 
 .card {
   background: linear-gradient(
@@ -123,8 +128,7 @@ h3 {
   margin: 2rem 1rem;
   padding: 1rem;
   box-shadow: 5px 5px 20px rgba(122, 122, 122, 0.212);
-  justify-content: space-between;
-  flex: 25%;
+  width: 25%;
 }
 
 .draggable {
@@ -184,7 +188,7 @@ button:hover {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #2b5f55;
+  background: #426696;
   border-radius: 10px;
 }
 
@@ -397,4 +401,22 @@ button:hover {
 
 .no-outline:focus {
   outline: none;
+}
+
+@media(max-width: 900px) {
+  body {
+    overflow: scroll;
+    position: inherit;
+  }
+  .glass {
+    flex-direction: column;
+  }
+
+  .cards {
+    flex-direction: column; 
+  }
+
+  .card {
+    width: initial;
+  }
 }
