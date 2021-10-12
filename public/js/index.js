@@ -20,15 +20,15 @@ function showTasks(data) {
             case 1:
                 tasksDiv.innerHTML += createTask(task)
                 break;
-    
+
             case 2:
                 tasksDivInProgress.innerHTML += createTask(task)
                 break;
-    
+
             case 3:
                 tasksDivInReview.innerHTML += createTask(task)
                 break;
-    
+
             case 4:
                 tasksDivDone.innerHTML += createTask(task)
                 break;
@@ -55,7 +55,7 @@ function drag(ev) {
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-    var description = document.getElementById(data).innerText.replace(/</g,"&lt;");
+    var description = document.getElementById(data).innerText.replace(/</g, "&lt;");
     if (ev.target.id == 'tasksDiv' || ev.target.id == 'tasksDivInProgress' || ev.target.id == 'tasksDivInReview' || ev.target.id == 'tasksDivDone') {
         ev.target.appendChild(document.getElementById(data));
     }
@@ -203,6 +203,10 @@ menu.addEventListener('click', (e) => {
         overlay.classList.add("nav-open");
     }
 })
+
+function openOrganizations(e) {
+    document.getElementById("dropdown").classList.toggle("show");
+}
 
 getTasks();
 

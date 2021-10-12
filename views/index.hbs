@@ -14,7 +14,7 @@
 
 <body>
     <script>
-        var user = {{{userJS}}}
+        var user = {{{ userJS }}}
     </script>
     <div class="container">
         <div id="menu" class="container-menu" onclick="myFunction(this)">
@@ -24,15 +24,20 @@
         </div>
         <nav class="nav">
             <div class="nav-links">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link dropbtn" onclick="openOrganizations()">
                     <i class="fas fa-chalkboard"></i>
                     Dashboard
                 </a>
+                <div id="dropdown" class="dropdown-content">
+                    <a href="#createOrganization" class="dropdown-link">createOrganization</a>
+                    <a href="#Organization1" class="dropdown-link">Organization1</a>
+                    <a href="#Organization2" class="dropdown-link">Organization2</a>
+                </div>
                 <a href="#" class="nav-link">
                     <i class="fas fa-user-circle"></i>
                     Profile
                 </a>
-                <a href="#" id="logoutLink" class="nav-link" >
+                <a href="#" id="logoutLink" class="nav-link">
                     <i class="fas fa-sign-out-alt"></i>
                     Log out
                 </a>
