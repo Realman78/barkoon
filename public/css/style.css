@@ -1,22 +1,23 @@
-body {
-  color: #426696;
-  font-family: "Poppins", sans-serif;
-  margin: 0;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  overflow: hidden;
+html {
+  margin: 0px;
+  min-height: 100%;
+  width: 100%;
 }
 
-.container {
+body {
+  background: rgb(254, 234, 202);
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  min-height: 100%;
+}
+
+.container-tasks {
   font-family: "Poppins", sans-serif;
   min-height: 100%;
   background: rgb(254, 234, 202);
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
 .title {
@@ -43,7 +44,7 @@ body {
 
 .tasksSection {
   overflow-y: scroll;
-  height: 650px;
+  height: 400px;
 }
 
 .taskDescription {
@@ -91,7 +92,6 @@ h3 {
 .glass {
   background: white;
   min-height: 90vh;
-  width: 90%;
   background: linear-gradient(
     to right bottom,
     rgba(255, 255, 255, 0.7),
@@ -100,23 +100,19 @@ h3 {
   border-radius: 10px;
   z-index: 1;
   backdrop-filter: blur(2rem);
-  /* justify-content: center; */
-  display: flex;
+  /* justify-content: center; */  
   margin: auto;
-  width: 90%;
   padding: 10px;
   align-items: stretch;
   flex-direction: row;
+  margin-left: 220px;
 }
 
 .cards {  
   justify-content: center;
   width: 100%;
-  height: inherit;
   display: flex;
 }
-
-
 
 .card {
   background: linear-gradient(
@@ -140,7 +136,7 @@ h3 {
   word-wrap: break-word;
 }
 
-button {
+.button-add {
   padding: 0.5rem;
   font-size: 2rem;
   border: none;
@@ -154,7 +150,7 @@ button {
   transition: all 0.3s ease;
 }
 
-button:hover {
+.button-add:hover {
   background: #426696;
   color: rgb(255, 255, 255);
 }
@@ -308,79 +304,51 @@ button:hover {
 }
 
 .nav {
-  display: flex;
+  height: 100%;
+  width: 100px;
+  position: fixed;
+  z-index: 1;
   top: 0;
   left: 0;
-  background-color: rgb(219, 190, 140);
+  overflow-x: hidden;
   box-shadow: 20px 20px 20px rgba(122, 122, 122, 0.212);
+  background-color: #426696;
 }
 
 .nav-links {
   position: fixed;
-  top: 100px;
   left: 0;
   z-index: 10;
   height: 100vh;
-  width: 250px;
+  width: 210px;
   background-color: #426696;
-  transform: translateX(-250px);
+  transform: translateX(-10px);
   border-radius: 10px;
+  box-shadow: 20px 20px 20px rgba(122, 122, 122, 0.212);
 }
 
-.nav-open .nav-links {
-  transform: translateX(0px);
-  transition: 0.2s ease;
-  box-shadow: 10px 10px 20px rgb(122, 122, 122);
-}
-
-.nav-close .nav-links {
-  transform: translateX(-250px);
-  transition: 0.2s ease;
-}
-
-.nav-link {
+.nav-link2 {
   display: flex;
   align-items: center;
   color: #fff;
   font-weight: bold;
   font-size: 20px;
-  text-decoration: none;
   padding: 20px 20px;
   z-index: 10;
+  background-color: rgba(0, 179, 203, 0);
+  border: none;
+  width: 100%;
+  cursor: pointer;
 }
 
-.nav-link > i {
+.nav-link2 > i {
   margin-right: 20px;
   width: 20px;
 }
 
-.nav-link-active,
 .nav-link:hover {
   color: #426696;
   background-color: rgb(254, 234, 202);
-}
-
-.nav-overlay {
-  position: fixed;
-  top: 0;
-  left: 100px;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(2px);
-  visibility: hidden;
-}
-
-.nav-open .nav-overlay {
-  visibility: visible;
-  transition: 0.2s ease;
-}
-
-.nav-close .nav-overlay {
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.1s ease;
 }
 
 .barkoon {
@@ -452,4 +420,24 @@ button:hover {
 .dropdown-link:hover {  
   color: rgb(254, 234, 202);
   background-color: #426696;
+}
+
+.modal-organization {
+  position: absolute;
+  width: 500px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); 
+}
+
+.group-name {
+  margin-top: 20px;
+}
+
+.close {
+  border-radius: 10px;
+  width: 30px;
+  height: 30px;
+  border: 1px;
+  background-color: rgba(255,255,255,0);
 }

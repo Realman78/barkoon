@@ -15,7 +15,7 @@ async function getTasks() {
 
 createOrganisationLink.addEventListener('click', e=>{
     e.preventDefault()
-    $("#createOrganisationModal").modal('show')
+    $(".modal-backdrop").remove();
 })
 
 function showTasks(data) {
@@ -199,7 +199,7 @@ async function addTask(taskData) {
     })
 }
 
-function myFunction(x) {
+/* function myFunction(x) {
     x.classList.toggle("change");
 }
 
@@ -222,13 +222,13 @@ menu.addEventListener('click', (e) => {
 
 function openOrganizations(e) {
     document.getElementById("dropdown").classList.toggle("show");
-}
+} */
 
 getTasks();
 
-logoutButton.addEventListener('click', (e) => {
+/* logoutButton.addEventListener('click', (e) => {
     e.preventDefault()
     fetch('/logout').then(() => {
         window.location = '/login'
     })
-})
+}) */
