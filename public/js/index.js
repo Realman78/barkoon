@@ -5,12 +5,18 @@ const tasksDivDone = document.getElementById("tasksDivDone");
 const textAreaDescription = document.getElementById('textAreaDescription')
 const addTaskButton = document.getElementById('addTaskButton')
 const logoutButton = document.getElementById('logoutLink')
+const createOrganisationLink = document.getElementById('createOrganisationLink')
 
 async function getTasks() {
     const res = await fetch('/tasks/getall')
     const data = await res.json()
     showTasks(data)
 }
+
+createOrganisationLink.addEventListener('click', e=>{
+    e.preventDefault()
+    $("#createOrganisationModal").modal('show')
+})
 
 function showTasks(data) {
     data.forEach((task) => {

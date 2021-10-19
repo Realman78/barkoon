@@ -24,15 +24,17 @@ app.set('views', viewsPath)
 const registerRouter = require('./routes/registerRouter')
 const loginRouter = require('./routes/loginRouter')
 const logoutRoute = require('./routes/logout')
+const settingsRoute = require('./routes/settingsRouter')
 
 app.use('/login', loginRouter)
 app.use('/register', registerRouter)
 app.use('/logout', logoutRoute)
+app.use('/settings', settingsRoute)
 
 const tasksApiRoute = require('./routes/api/tasks')
 app.use('/tasks', tasksApiRoute)
-const usersApiToute = require('./routes/api/users')
-app.use('/users', usersApiToute)
+const usersApiRoute = require('./routes/api/users')
+app.use('/users', usersApiRoute)
 
 app.get('/', requestLogin, (req,res)=>{
     const payload = {
