@@ -405,12 +405,12 @@ h3 {
   display: block;
 }
 
-.show {
+/* .show {
   display: block;
   border-radius: 5px;
   width: 200px;
   left: 50px;
-}
+} */
 
 .dropdown-link {
   color: #426696;

@@ -14,8 +14,10 @@ async function getTasks() {
 }
 
 createOrganisationLink.addEventListener('click', e=>{
-    e.preventDefault()
-    $(".modal-backdrop").remove();
+    e.preventDefault();
+    $("#createOrganisationModal").modal('show');
+    $(".modal-backdrop.show").remove();
+    $(".modal-backdrop.fade").remove();
 })
 
 function showTasks(data) {
