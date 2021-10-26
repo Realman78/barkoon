@@ -6,6 +6,30 @@ const textAreaDescription = document.getElementById('textAreaDescription')
 const addTaskButton = document.getElementById('addTaskButton')
 const logoutButton = document.getElementById('logoutLink')
 const createOrganisationLink = document.getElementById('createOrganisationLink')
+const createGroupButton = document.getElementById('createGroupButton')
+const groupNameInput = document.getElementById('groupNameInput')
+const settingsButton = document.getElementById('settingButton')
+
+createGroupButton.addEventListener('click', (e)=>{
+    e.preventDefault()
+    const body = JSON.stringify({
+        name: groupNameInput.value
+    })
+    fetch('/orgs/create', {
+        method: "POST",
+        body,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then(()=>{
+        console.log('ok')
+        //tu napravi sta se desi kad se napravi grupa (ili organizacija ili kult)
+    })
+})
+
+settingsButton.addEventListener('click', (e)=>{
+    window.location = '/settings'
+})
 
 async function getTasks() {
     const res = await fetch('/tasks/getall')

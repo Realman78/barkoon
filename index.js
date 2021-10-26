@@ -35,6 +35,8 @@ const tasksApiRoute = require('./routes/api/tasks')
 app.use('/tasks', tasksApiRoute)
 const usersApiRoute = require('./routes/api/users')
 app.use('/users', usersApiRoute)
+const organisationsApiRoute = require('./routes/api/organisations')
+app.use('/orgs', organisationsApiRoute)
 
 app.get('/', requestLogin, (req,res)=>{
     const payload = {
