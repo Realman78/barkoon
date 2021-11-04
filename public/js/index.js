@@ -9,8 +9,9 @@ const createOrganisationLink = document.getElementById('createOrganisationLink')
 const createGroupButton = document.getElementById('createGroupButton')
 const groupNameInput = document.getElementById('groupNameInput')
 const settingsButton = document.getElementById('settingButton')
+const groupsLink = document.getElementById("groupsLink");
 
-createGroupButton.addEventListener('click', (e)=>{
+createGroupButton.addEventListener('click', (e) => {
     e.preventDefault()
     const body = JSON.stringify({
         name: groupNameInput.value
@@ -21,13 +22,13 @@ createGroupButton.addEventListener('click', (e)=>{
         headers: {
             'Content-Type': 'application/json'
         },
-    }).then(()=>{
+    }).then(() => {
         console.log('ok')
         //tu napravi sta se desi kad se napravi grupa (ili organizacija ili kult)
     })
 })
 
-settingsButton.addEventListener('click', (e)=>{
+settingsButton.addEventListener('click', (e) => {
     window.location = '/settings'
 })
 
@@ -37,12 +38,68 @@ async function getTasks() {
     showTasks(data)
 }
 
-createOrganisationLink.addEventListener('click', e=>{
+async function getGroups() {
+    const res = await fetch('/orgs/get');
+    const data = await res.json();
+    showGroups(data)
+}
+
+createOrganisationLink.addEventListener('click', e => {
     e.preventDefault();
     $("#createOrganisationModal").modal('show');
     $(".modal-backdrop.show").remove();
     $(".modal-backdrop.fade").remove();
 })
+
+function showGroups(data) {
+    for (var i = 0; i < 3; ++i) {
+        if (data[i] == null) break;
+        var input = document.createElement("button");
+        input.classList.add("nav-link2");
+        input.classList.add("groups");
+        input.innerHTML = data[i].name;
+        groupsLink.appendChild(input);
+    }
+
+    var input = document.createElement("button");
+    input.classList.add("nav-link2");
+    input.classList.add("groups");
+    input.innerHTML = "more" + `<i id="more" class="fas fa-caret-down more"></i>`;
+    groupsLink.appendChild(input);
+    var allGroups = document.createElement("div");
+    groupsLink.appendChild(allGroups);  
+    input.addEventListener("click", (e) => {
+        var more = document.getElementById("more");
+        if (more.classList.contains("more")) {
+            
+            more.classList.remove("more");
+            more.classList.add("more2");
+            data.forEach((groups) => {
+                var inputGroup = document.createElement("button");
+                inputGroup.classList.add("nav-link2");
+                inputGroup.classList.add("groups");
+                inputGroup.innerHTML = groups.name;
+                allGroups.appendChild(inputGroup);
+            })
+        } else {
+            if(allGroups != null){
+            more.classList.remove("more2");
+            more.classList.add("more");
+            while (allGroups.firstChild) {
+                allGroups.firstChild.remove()
+            }
+            //input.parentNode.removeChild(allGroups);
+        }
+            
+        }
+    });
+
+    console.log(data);
+}
+
+function toggleMore() {
+
+}
 
 function showTasks(data) {
     data.forEach((task) => {
@@ -63,7 +120,7 @@ function showTasks(data) {
 
             case 4:
                 tasksDivDone.innerHTML += createTask(task)
-                
+
                 break;
         }
     });
@@ -121,12 +178,12 @@ function drop(ev) {
                 stage: 4
             }));
             fetch('/tasks/delete/' + data.substring(4), {
-                    method: "DELETE",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }).then((res)=>res.json())
-                .then(data=>{
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((res) => res.json())
+                .then(data => {
                     console.log(data)
                 })
             break;
@@ -251,6 +308,7 @@ function openOrganizations(e) {
 } */
 
 getTasks();
+getGroups();
 
 /* logoutButton.addEventListener('click', (e) => {
     e.preventDefault()

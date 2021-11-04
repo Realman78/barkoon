@@ -341,7 +341,7 @@ h3 {
   cursor: pointer;
 }
 
-.nav-link2 > i {
+.nav-link-icon {
   margin-right: 20px;
   width: 20px;
 }
@@ -440,4 +440,29 @@ h3 {
   height: 30px;
   border: 1px;
   background-color: rgba(255,255,255,0);
+}
+
+.groups {
+  font-size: 14px;
+  font-weight: normal;
+  width: 90%;
+  padding: 10px;
+  text-align: right;
+  margin-left: 50px;
+}
+
+.more {
+  width: initial;
+  font-size: 20px;
+  margin-left: 10px;
+  transition: ease-in 0.4s;
+}
+
+.more2 {
+  width: initial;
+  transform: rotate(-180deg);
+  transform-origin: center;
+  font-size: 20px;
+  margin-left: 10px;
+  transition: ease-in 0.4s;
 }
