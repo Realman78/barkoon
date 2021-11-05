@@ -47,8 +47,6 @@ async function getGroups() {
 createOrganisationLink.addEventListener('click', e => {
     e.preventDefault();
     $("#createOrganisationModal").modal('show');
-    $(".modal-backdrop.show").remove();
-    $(".modal-backdrop.fade").remove();
 })
 
 function showGroups(data) {
@@ -67,38 +65,41 @@ function showGroups(data) {
     input.innerHTML = "more" + `<i id="more" class="fas fa-caret-down more"></i>`;
     groupsLink.appendChild(input);
     var allGroups = document.createElement("div");
-    groupsLink.appendChild(allGroups);  
+    groupsLink.appendChild(allGroups);
+    allGroups.classList.add("allGroups");
     input.addEventListener("click", (e) => {
         var more = document.getElementById("more");
         if (more.classList.contains("more")) {
-            
+            allGroups.style.display = "block";
             more.classList.remove("more");
             more.classList.add("more2");
+            let i = 0;
             data.forEach((groups) => {
-                var inputGroup = document.createElement("button");
-                inputGroup.classList.add("nav-link2");
-                inputGroup.classList.add("groups");
-                inputGroup.innerHTML = groups.name;
-                allGroups.appendChild(inputGroup);
+                if (i < 3) {
+                    i++;
+                } else {
+                    var inputGroup = document.createElement("button");
+                    inputGroup.classList.add("nav-link2");
+                    inputGroup.classList.add("groups");
+                    inputGroup.innerHTML = groups.name;
+                    allGroups.appendChild(inputGroup);
+                }
             })
         } else {
-            if(allGroups != null){
-            more.classList.remove("more2");
-            more.classList.add("more");
-            while (allGroups.firstChild) {
-                allGroups.firstChild.remove()
+            if (allGroups != null) {
+                more.classList.remove("more2");
+                more.classList.add("more");
+                while (allGroups.firstChild) {
+                    allGroups.firstChild.remove()
+                }
+
+                allGroups.style.display = "none";
             }
-            //input.parentNode.removeChild(allGroups);
-        }
-            
+
         }
     });
 
     console.log(data);
-}
-
-function toggleMore() {
-
 }
 
 function showTasks(data) {
