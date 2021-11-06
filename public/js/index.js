@@ -25,6 +25,8 @@ createGroupButton.addEventListener('click', (e) => {
     }).then(() => {
         console.log('ok')
         //tu napravi sta se desi kad se napravi grupa (ili organizacija ili kult)
+        groupNameInput.value = '';
+        location.reload();
     })
 })
 
@@ -56,6 +58,9 @@ function showGroups(data) {
         input.classList.add("nav-link2");
         input.classList.add("groups");
         input.innerHTML = data[i].name;
+        if (input.innerHTML.length > 20) {
+            input.innerHTML = data[i].name.substring(0, 20) + '...';
+        }
         groupsLink.appendChild(input);
     }
 
@@ -82,6 +87,9 @@ function showGroups(data) {
                     inputGroup.classList.add("nav-link2");
                     inputGroup.classList.add("groups");
                     inputGroup.innerHTML = groups.name;
+                    if (inputGroup.innerHTML.length > 20) {
+                        inputGroup.innerHTML = groups.name.substring(0, 12) + '...';
+                    }
                     allGroups.appendChild(inputGroup);
                 }
             })
@@ -252,7 +260,9 @@ addTaskButton.addEventListener('click', e => {
 
 logoutButton.addEventListener('click', (e) => {
     e.preventDefault()
-    console.log(e.target)
+    fetch('/logout').then(() => {
+        window.location = '/login'
+    })
 })
 
 async function updateTask(id, bodyData) {
