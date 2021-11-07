@@ -57,10 +57,8 @@ function showGroups(data) {
         var input = document.createElement("button");
         input.classList.add("nav-link2");
         input.classList.add("groups");
+        input.classList.add("ellipsis");
         input.innerHTML = data[i].name;
-        if (input.innerHTML.length > 20) {
-            input.innerHTML = data[i].name.substring(0, 20) + '...';
-        }
         groupsLink.appendChild(input);
     }
 

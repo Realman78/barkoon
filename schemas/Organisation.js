@@ -5,6 +5,7 @@ const organisationSchema = Schema({
     name: {type: String, trim: true},
     tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
     users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    admin: {type: Schema.Types.ObjectId, ref: 'User'}
 })
 
 const Organisation = mongoose.model("Organisation", organisationSchema)
