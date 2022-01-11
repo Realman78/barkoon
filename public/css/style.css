@@ -43,7 +43,7 @@ body {
 }
 
 .tasksSection {
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 400px;
 }
 
@@ -467,8 +467,8 @@ h3 {
 }
 
 .allGroups {
-  height: 200px;
-  overflow-y: scroll;
+  max-height: 200px;
+  overflow-y: auto;
   display: none;
   overflow-x: none;
 }
@@ -531,4 +531,8 @@ h3 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.active {
+  background-color: #273d57;
 }

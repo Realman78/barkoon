@@ -10,6 +10,7 @@ const createGroupButton = document.getElementById('createGroupButton')
 const groupNameInput = document.getElementById('groupNameInput')
 const settingsButton = document.getElementById('settingButton')
 const groupsLink = document.getElementById("groupsLink");
+var btnArray = []
 
 createGroupButton.addEventListener('click', (e) => {
     e.preventDefault()
@@ -52,58 +53,100 @@ createOrganisationLink.addEventListener('click', e => {
 })
 
 function showGroups(data) {
-    for (var i = 0; i < 3; ++i) {
+    for (let i = 0; i < 3; ++i) {
         if (data[i] == null) break;
-        var input = document.createElement("button");
+        let input = document.createElement("button");
         input.classList.add("nav-link2");
         input.classList.add("groups");
         input.classList.add("ellipsis");
         input.innerHTML = data[i].name;
-        groupsLink.appendChild(input);
-    }
-
-    var input = document.createElement("button");
-    input.classList.add("nav-link2");
-    input.classList.add("groups");
-    input.innerHTML = "more" + `<i id="more" class="fas fa-caret-down more"></i>`;
-    groupsLink.appendChild(input);
-    var allGroups = document.createElement("div");
-    groupsLink.appendChild(allGroups);
-    allGroups.classList.add("allGroups");
-    input.addEventListener("click", (e) => {
-        var more = document.getElementById("more");
-        if (more.classList.contains("more")) {
-            allGroups.style.display = "block";
-            more.classList.remove("more");
-            more.classList.add("more2");
-            let i = 0;
-            data.forEach((groups) => {
-                if (i < 3) {
-                    i++;
-                } else {
-                    var inputGroup = document.createElement("button");
-                    inputGroup.classList.add("nav-link2");
-                    inputGroup.classList.add("groups");
-                    inputGroup.innerHTML = groups.name;
-                    if (inputGroup.innerHTML.length > 20) {
-                        inputGroup.innerHTML = groups.name.substring(0, 12) + '...';
-                    }
-                    allGroups.appendChild(inputGroup);
+        input.setAttribute("data-id", data[i]._id);
+        input.addEventListener("click", (e) => {
+            console.log(data[i]._id);
+            btnArray.forEach((button) => {
+                if(button.classList.contains("active")) {
+                    button.classList.remove("active");
                 }
             })
-        } else {
-            if (allGroups != null) {
-                more.classList.remove("more2");
-                more.classList.add("more");
-                while (allGroups.firstChild) {
-                    allGroups.firstChild.remove()
+            input.classList.add("active");
+            fetch('/tasks/get/' + data[i]._id).then((res) => res.json())
+                .then(data => {
+                    console.log(data)                                    
+                })
+            console.log(data);
+        })
+        groupsLink.appendChild(input);
+        btnArray.push(input);
+    }
+
+    if (data.length > 3) {
+        let input = document.createElement("button");
+        input.classList.add("nav-link2");
+        input.classList.add("groups");
+        input.innerHTML = "more" + `<i id="more" class="fas fa-caret-down more"></i>`;
+        groupsLink.appendChild(input);
+
+        //napravi div di ce ispisivat sve grupe od more
+        let allGroups = document.createElement("div");
+        groupsLink.appendChild(allGroups);
+        allGroups.classList.add("allGroups");
+        input.addEventListener("click", (e) => {
+            let more = document.getElementById("more");
+            if (more.classList.contains("more")) {
+                allGroups.style.display = "block";
+                more.classList.remove("more");
+                more.classList.add("more2");
+                let i = 0;
+                data.forEach((groups) => {
+                    if (i < 3) {
+                        i++;
+                    } else {
+                        var inputGroup = document.createElement("button");
+                        inputGroup.classList.add("nav-link2");
+                        inputGroup.classList.add("groups");
+                        inputGroup.innerHTML = groups.name;
+                        inputGroup.setAttribute("data-id", groups._id);
+                        btnArray.push(inputGroup);
+                        //doda eventlistener za svaku grupu koja je u onom ispod more
+                        inputGroup.addEventListener("click", (e) => {
+                            btnArray.forEach((button) => {
+                                if(button.classList.contains("active")) {
+                                    button.classList.remove("active");
+                                }
+                            })
+                            inputGroup.classList.add("active");
+                            console.log(groups._id);
+                            fetch('/tasks/get/' + groups._id).then((res) => res.json())
+                                .then(data => {
+                                    console.log(data)                                    
+                                })
+                            console.log(data);
+                        })
+
+                        //skrati ime, promijenit cemo u css
+                        if (inputGroup.innerHTML.length > 20) {
+                            inputGroup.innerHTML = groups.name.substring(0, 12) + '...';
+                        }
+
+                        allGroups.appendChild(inputGroup);
+                    }
+                })
+            } else {
+                if (allGroups != null) {
+                    more.classList.remove("more2");
+                    more.classList.add("more");
+                    while (allGroups.firstChild) {
+                        allGroups.firstChild.remove()
+                    }
+
+                    allGroups.style.display = "none";
                 }
 
-                allGroups.style.display = "none";
             }
+        });
+    }
 
-        }
-    });
+
 
     console.log(data);
 }
@@ -230,6 +273,13 @@ addTaskButton.addEventListener('click', e => {
     } else {
         textAreaDescription.style.display = "none";
     } */
+    console.log(btnArray);
+    let GroupId;
+    btnArray.forEach((button) => {
+        if(button.classlist.contains("active")) {
+            GroupId = button.getAttribute("data-id");
+        }
+    })
 
     var input = document.createElement("textarea");
     input.classList.add("textarea");
@@ -241,7 +291,7 @@ addTaskButton.addEventListener('click', e => {
         const bodyData = JSON.stringify({
             description: description,
             user: user.username,
-            stage: 1
+            stage: 1,
         })
         addTask(bodyData)
     }

@@ -9,19 +9,24 @@ router.get('/getall',async (req,res)=>{
     const tasks = await Task.find({completed: false}).catch(e=> console.log(e))
     res.send(tasks)
 })
+
+router.get('/get/:orgId', async (req,res)=>{
+    const tasks = await Task.find({organisation: req.params.orgId})
+    res.send(tasks)
+})
 //DOdavanje novog taska, možes poslat sta god oces ja sam bzvz stavio Success
 router.post('/add', async (req,res)=>{
-    if (!req.body.description || !req.body.user){
+    if (!req.body.description || !req.body.user || !req.body.organisation){
         return res.sendStatus(400)
     }
     const body = {
         description: req.body.description,
         user: req.body.user._id,
         stage: 1,
+        organisation: req.body.organisation
     }
     const task = await Task.create(body).catch(e=>console.log(e))
     res.send(task)
-
 })
 
 router.patch('/update/:id', async (req,res)=>{
